@@ -6,9 +6,9 @@
         "game"
     ],
     "license": "MIT",
-    "repository": "https://github.com/MaxLaumeister/collectibles.js.git",
-    "homepage": "https://www.maxlaumeister.com/collectibles-js/",
-    "author": "Maximillian Laumeister <max@maxlaumeister.com> (https://www.maxlaumeister.com)",
+    "repository": "https://github.com/lupine-dev/collectibles.js.git",
+    "homepage": "https://lupine.dev/collectibles-js/",
+    "author": "Wolfy",
     "scripts": {
         "version": "gulp && git add -A ."
     },

@@ -8,7 +8,7 @@
 
 For more info, see the project page:
 
-https://www.maxlaumeister.com/collectibles-js/
+https://lupine.dev/collectibles-js/
 
 ## Compiling
 
