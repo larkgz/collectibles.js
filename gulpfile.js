@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify-es').default;
 var svgo = require('gulp-svgo');
@@ -19,20 +19,20 @@ var banner = ['/**',
   ''].join('\n');
 
 function sass_task(minify) {
-  gulp.src(['node_modules/microtip/microtip.css', 'src/main.scss', 'src/theme-*.scss'])
+  return gulp.src(['node_modules/microtip/microtip.css', 'src/main.scss', 'src/theme-*.scss'])
   .pipe(plumber())
   .pipe(concat('collectibles.min.css'))
-  .pipe(sass({outputStyle: minify? 'compressed' : 'expanded'}))
+  .pipe(sass({style: minify? 'compressed' : 'expanded'}))
   .pipe(header(banner, { pkg : pkg } ))
   .pipe(gulp.dest('dist'))
 }
 
 gulp.task('sassdev', function() {
-  sass_task(false);
+  return sass_task(false);
 });
 
 gulp.task('sassmin', function() {
-  sass_task(true);
+  return sass_task(true);
 });
 
 var jsfiles = ['node_modules/secrets.js-grempe/secrets.js', 'src/*.js'];
@@ -44,7 +44,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('jsdev', function() {
-  gulp.src(jsfiles)
+  return gulp.src(jsfiles)
   .pipe(plumber())
   .pipe(sourcemaps.init())
     .pipe(concat('collectibles.min.js'))
@@ -54,7 +54,7 @@ gulp.task('jsdev', function() {
 });
 
 gulp.task('jsmin', function() {
-  gulp.src(jsfiles)
+  return gulp.src(jsfiles)
   .pipe(plumber())
   .pipe(concat('collectibles.min.js'))
   .pipe(uglify())
@@ -63,14 +63,16 @@ gulp.task('jsmin', function() {
 });
 
 gulp.task('img', function() {
-  gulp.src(['!src/img/*.svg', 'src/img/*'])
+  return gulp.src(['!src/img/*.svg', 'src/img/*'])
   .pipe(plumber())
   .pipe(gulp.dest('dist/img'))
-  
-  gulp.src('src/img/*.svg')
+});
+gulp.task('svg', function() {
+  return gulp.src('src/img/*.svg')
   .pipe(svgo())
   .pipe(gulp.dest('dist/img'))
 });
+gulp.task('assets', gulp.series('img', 'svg'));
 
-gulp.task('default', ['sassmin', 'jsmin', 'img']);
-gulp.task('dev', ['lint', 'sassdev', 'jsdev', 'img']);
+gulp.task('default', gulp.parallel(['sassmin', 'jsmin', 'assets']));
+gulp.task('dev', gulp.parallel(['lint', 'sassdev', 'jsdev', 'assets']));

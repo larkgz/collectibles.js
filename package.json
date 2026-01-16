@@ -17,15 +17,16 @@
         "secrets.js-grempe": "^1.1.0"
     },
     "devDependencies": {
-        "gulp": "^3.9.1",
+        "gulp": "^4.0.2",
         "gulp-concat": "^2.6.1",
         "gulp-header": "^2.0.5",
         "gulp-jshint": "^2.1.0",
         "gulp-plumber": "^1.2.0",
-        "gulp-sass": "^4.0.1",
+        "gulp-sass": "^6.0.1",
         "gulp-sourcemaps": "^2.6.4",
         "gulp-svgo": "^1.5.4",
         "gulp-uglify-es": "^1.0.4",
-        "jshint": "^2.9.6"
+        "jshint": "^2.9.6",
+        "sass": "^1.97.2"
     }
 }
